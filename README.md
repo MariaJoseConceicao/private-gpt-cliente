@@ -18,18 +18,18 @@ nada para a internet.
 
 Abre um terminal (PowerShell, CMD ou terminal do Mac/Linux) e corre:
 
-```bash
-git clone <URL_DESTE_REPOSITORIO>
-cd <NOME_DA_PASTA>
-```
+\`\`\`bash
+git clone https://github.com/MariaJoseConceicao/private-gpt-cliente.git
+cd private-gpt-cliente
+\`\`\`
 
 ## Passo 2 — Arrancar os containers
 
 Na pasta do projeto, corre:
 
-```bash
+\`\`\`bash
 docker compose up -d
-```
+\`\`\`
 
 Isto vai:
 1. Descarregar as imagens necessárias (só na primeira vez).
@@ -42,15 +42,15 @@ Isto vai:
 O download dos modelos demora alguns minutos, dependendo da tua
 internet. Para acompanhar o progresso, corre:
 
-```bash
+\`\`\`bash
 docker compose logs -f private-gpt
-```
+\`\`\`
 
 Quando vires esta linha, está pronto:
 
-```
+\`\`\`
 Uvicorn running on http://0.0.0.0:8001
-```
+\`\`\`
 
 Podes fechar os logs com `Ctrl+C` (isto não pára os containers).
 
@@ -58,9 +58,9 @@ Podes fechar os logs com `Ctrl+C` (isto não pára os containers).
 
 Abre o browser em:
 
-```
+\`\`\`
 http://localhost:8001
-```
+\`\`\`
 
 Já podes fazer upload dos teus documentos (botão "Upload File(s)") e
 fazer perguntas sobre o conteúdo deles, no modo **RAG**.
