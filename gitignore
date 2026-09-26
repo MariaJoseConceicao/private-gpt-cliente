@@ -1,0 +1,4 @@
+# Nada de dados locais ou pastas de modelos no repositório
+local_data/
+models/
+.env

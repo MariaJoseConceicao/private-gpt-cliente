@@ -1,0 +1,46 @@
+services:
+
+  # Motor Ollama - corre os modelos de IA localmente
+  ollama:
+    image: ollama/ollama:latest
+    container_name: pgpt-ollama
+    restart: unless-stopped
+    volumes:
+      - ollama_data:/root/.ollama
+    environment:
+      OLLAMA_ORIGINS: "*"
+    # Descomenta as linhas abaixo se tiveres uma placa gráfica NVIDIA e
+    # quiseres usar a GPU em vez do CPU (muito mais rápido):
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: 1
+    #           capabilities: [gpu]
+
+  # Aplicação Private GPT (interface + API)
+  private-gpt:
+    image: zylonai/private-gpt:0.6.2-ollama
+    container_name: pgpt-app
+    restart: unless-stopped
+    depends_on:
+      - ollama
+    ports:
+      - "8001:8001"
+    volumes:
+      - private_gpt_data:/home/worker/app/local_data
+    environment:
+      PORT: 8001
+      PGPT_PROFILES: docker
+      PGPT_MODE: ollama
+      PGPT_EMBED_MODE: ollama
+      PGPT_OLLAMA_API_BASE: http://ollama:11434
+      PGPT_OLLAMA_EMBEDDING_API_BASE: http://ollama:11434
+      PGPT_OLLAMA_LLM_MODEL: llama3.1
+      PGPT_OLLAMA_EMBEDDING_MODEL: nomic-embed-text
+      PGPT_OLLAMA_AUTOPULL_MODELS: "true"
+
+volumes:
+  ollama_data:
+  private_gpt_data:
